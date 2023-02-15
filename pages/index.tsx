@@ -2,17 +2,17 @@ import Link from '@/components/Link'
 import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import formatDate from '@/lib/utils/formatDate'
-import { sortedBlogPost, allCoreContent } from '@/lib/utils/contentlayer'
+import { formatDate } from 'pliny/utils/formatDate'
+import { sortedBlogPost, allCoreContent } from 'pliny/utils/contentlayer'
 import { InferGetStaticPropsType } from 'next'
-import NewsletterForm from '@/components/NewsletterForm'
+import { NewsletterForm } from 'pliny/ui/NewsletterForm'
 import { allBlogs } from 'contentlayer/generated'
+import type { Blog } from 'contentlayer/generated'
 
 const MAX_DISPLAY = 5
 
 export const getStaticProps = async () => {
-  // TODO: move computation to get only the essential frontmatter to contentlayer.config
-  const sortedPosts = sortedBlogPost(allBlogs)
+  const sortedPosts = sortedBlogPost(allBlogs) as Blog[]
   const posts = allCoreContent(sortedPosts)
 
   return { props: { posts } }
@@ -42,7 +42,7 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
                     <dl>
                       <dt className="sr-only">Published on</dt>
                       <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date)}</time>
+                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                       </dd>
                     </dl>
                     <div className="space-y-5 xl:col-span-3">
@@ -88,13 +88,13 @@ export default function Home({ posts }: InferGetStaticPropsType<typeof getStatic
           <Link
             href="/blog"
             className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label="all posts"
+            aria-label="All posts"
           >
             All Posts &rarr;
           </Link>
         </div>
       )}
-      {siteMetadata.newsletter.provider !== '' && (
+      {siteMetadata.newsletter.provider && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />
         </div>

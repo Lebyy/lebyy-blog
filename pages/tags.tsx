@@ -2,12 +2,10 @@ import Link from '@/components/Link'
 import { PageSEO } from '@/components/SEO'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-import kebabCase from '@/lib/utils/kebabCase'
-import { getAllTags } from '@/lib/utils/contentlayer'
+import { kebabCase } from 'pliny/utils/kebabCase'
+import { getAllTags } from 'pliny/utils/contentlayer'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { allBlogs } from 'contentlayer/generated'
-
-// TODO: refactor into contentlayer once compute over all docs is enabled
 
 export const getStaticProps: GetStaticProps<{ tags: Record<string, number> }> = async () => {
   const tags = await getAllTags(allBlogs)
@@ -35,6 +33,7 @@ export default function Tags({ tags }: InferGetStaticPropsType<typeof getStaticP
                 <Link
                   href={`/tags/${kebabCase(t)}`}
                   className="-ml-2 text-sm font-semibold uppercase text-gray-600 dark:text-gray-300"
+                  aria-label={`View posts tagged ${t}`}
                 >
                   {` (${tags[t]})`}
                 </Link>

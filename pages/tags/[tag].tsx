@@ -1,8 +1,8 @@
 import { TagSEO } from '@/components/SEO'
 import siteMetadata from '@/data/siteMetadata'
 import ListLayout from '@/layouts/ListLayout'
-import kebabCase from '@/lib/utils/kebabCase'
-import { getAllTags, allCoreContent } from '@/lib/utils/contentlayer'
+import { kebabCase } from 'pliny/utils/kebabCase'
+import { getAllTags, allCoreContent } from 'pliny/utils/contentlayer'
 import { InferGetStaticPropsType } from 'next'
 import { allBlogs } from 'contentlayer/generated'
 

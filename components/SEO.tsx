@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import siteMetadata from '@/data/siteMetadata'
-import { CoreContent } from '@/lib/utils/contentlayer'
+import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog, Authors } from 'contentlayer/generated'
 interface CommonSEOProps {
   title: string
@@ -125,7 +125,7 @@ export const BlogSEO = ({
   const featuredImages = imagesArr.map((img) => {
     return {
       '@type': 'ImageObject',
-      url: `${siteMetadata.siteUrl}${img}`,
+      url: img.includes('http') ? img : siteMetadata.siteUrl + img,
     }
   })
 

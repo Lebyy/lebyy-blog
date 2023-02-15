@@ -1,8 +1,10 @@
+import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import PageTitle from '@/components/PageTitle'
-import { MDXLayoutRenderer } from '@/components/MDXComponents'
-import { sortedBlogPost, coreContent } from '@/lib/utils/contentlayer'
+import { MDXComponents } from '@/components/MDXComponents'
+import { sortedBlogPost, coreContent } from 'pliny/utils/contentlayer'
 import { InferGetStaticPropsType } from 'next'
 import { allBlogs, allAuthors } from 'contentlayer/generated'
+import type { Blog } from 'contentlayer/generated'
 
 const DEFAULT_LAYOUT = 'PostLayout'
 
@@ -15,9 +17,8 @@ export async function getStaticPaths() {
 
 export const getStaticProps = async ({ params }) => {
   const slug = (params.slug as string[]).join('/')
-  const sortedPosts = sortedBlogPost(allBlogs)
+  const sortedPosts = sortedBlogPost(allBlogs) as Blog[]
   const postIndex = sortedPosts.findIndex((p) => p.slug === slug)
-  // TODO: Refactor this extraction of coreContent
   const prevContent = sortedPosts[postIndex + 1] || null
   const prev = prevContent ? coreContent(prevContent) : null
   const nextContent = sortedPosts[postIndex - 1] || null
@@ -39,7 +40,7 @@ export const getStaticProps = async ({ params }) => {
   }
 }
 
-export default function Blog({
+export default function BlogPostPage({
   post,
   authorDetails,
   prev,
@@ -47,16 +48,7 @@ export default function Blog({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      {'draft' in post && post.draft !== true ? (
-        <MDXLayoutRenderer
-          layout={post.layout || DEFAULT_LAYOUT}
-          toc={post.toc}
-          content={post}
-          authorDetails={authorDetails}
-          prev={prev}
-          next={next}
-        />
-      ) : (
+      {'draft' in post && post.draft === true ? (
         <div className="mt-24 text-center">
           <PageTitle>
             Under Construction{' '}
@@ -65,6 +57,16 @@ export default function Blog({
             </span>
           </PageTitle>
         </div>
+      ) : (
+        <MDXLayoutRenderer
+          layout={post.layout || DEFAULT_LAYOUT}
+          content={post}
+          MDXComponents={MDXComponents}
+          toc={post.toc}
+          authorDetails={authorDetails}
+          prev={prev}
+          next={next}
+        />
       )}
     </>
   )
