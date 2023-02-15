@@ -13,7 +13,10 @@ export default function Projects() {
             My Projects ✨
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Almost 90% of my projects yet are open-sourced and are available on my github profile. It's not alot atm 😅<br />Here are some of my favorite projects that I've worked on.
+            Almost 90% of my projects yet are open-sourced and are available on my github profile.
+            It's not alot atm 😅
+            <br />
+            Here are some of my favorite projects that I've worked on.
           </p>
         </div>
         <div className="container py-12">
