@@ -1,8 +1,9 @@
 const siteMetadata = {
-  title: 'Lebyy\'s Blog',
+  title: "Lebyy's Blog",
   author: 'Lebyy',
-  headerTitle: 'Lebyy\'s Blog',
-  description: '👨‍💻💭📝🌐🚀 Sharing my journey as a developer: From ideation 💡 to creation 🛠️ and launching 🚀 on the web 🌐!',
+  headerTitle: "Lebyy's Blog",
+  description:
+    '👨‍💻💭📝🌐🚀 Sharing my journey as a developer: From ideation 💡 to creation 🛠️ and launching 🚀 on the web 🌐!',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog.lebyy.me',
@@ -15,6 +16,16 @@ const siteMetadata = {
   twitter: 'https://twitter.com/Lebyy_Dev',
   youtube: 'https://youtube.com/@lebyyy',
   locale: 'en-US',
+  analytics: {
+    // If you want to use an analytics provider you have to add it to the
+    // content security policy in the `next.config.js` file.
+    // supports plausible, simpleAnalytics, umami or googleAnalytics
+    plausibleDataDomain: 'blog.lebyy.me', // e.g. tailwind-nextjs-starter-blog.vercel.app
+    simpleAnalytics: true, // true or false
+    umamiWebsiteId: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
+    googleAnalyticsId: '', // e.g. UA-000000-2 or G-XXXXXXX
+    posthogAnalyticsId: '', // posthog.init e.g. phc_5yXvArzvRdqtZIsHkEm3Fkkhm3d0bEYUXCaFISzqPSQ
+  },
   newsletter: {
     // supports mailchimp, buttondown, convertkit, klaviyo, revue
     // Please add your .env file and modify it according to your selection
